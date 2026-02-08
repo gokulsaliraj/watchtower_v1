@@ -430,92 +430,142 @@
             </p>
         </div>
 
-        <div class="features-grid">
-            <div class="feature-card bento-full">
-                <div class="card-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M9 9h6v6H9z" />
-                        <path d="M9 1h6" />
-                        <path d="M9 23h6" />
-                        <path d="M1 9v6" />
-                        <path d="M23 9v6" />
-                    </svg>
-                </div>
-                <h3>AI-Powered Focus</h3>
-                <p>Designed to operate continuously without fatigue, the system handles constant monitoring and
-                    repetitive surveillance tasks with unwavering accuracy. By automating routine checks, it
-                    significantly reduces the cognitive load on security personnel.</p>
-            </div>
-
-            <div class="feature-card bento-half">
-                <div class="card-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                </div>
-                <h3 style="color: #ffffff; margin-bottom: 20px;">Ideal For</h3>
-                <div class="location-tags">
-                    <span class="tag-chip">Residential</span>
-                    <span class="tag-chip">Malls</span>
-                    <span class="tag-chip">Stations</span>
-                    <span class="tag-chip">Educational</span>
-                    <span class="tag-chip">Industrial</span>
-                    <span class="tag-chip">Worship</span>
-                </div>
-            </div>
-
-            <div class="feature-card bento-half">
-                <div class="card-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                        <line x1="3" y1="9" x2="21" y2="9" />
-                        <line x1="9" y1="21" x2="9" y2="9" />
-                    </svg>
-                </div>
-                <h3>Unified Command</h3>
-                <p>Single dashboard for cameras, visitors, vehicles, and patrols with secure access from any device.</p>
-            </div>
-
-            <div class="feature-card bento-half">
-                <div class="card-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <polyline points="9 11 11 13 15 9" />
-                    </svg>
-                </div>
-                <h3 style="color: var(--accent);">With WatchTower</h3>
-                <ul class="comparison-bullets">
-                    <li>AI supports guards 24/7</li>
-                    <li>Wider coverage, less strain</li>
-                    <li>Instant SOP-aligned alerts</li>
-                    <li>Audit-ready digital logs</li>
-                </ul>
-            </div>
-
-            <div class="feature-card bento-half">
-                <div class="card-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" opacity="0.3" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                        <path d="M4.5 16.5l15-15" />
-                    </svg>
-                </div>
-                <h3 style="color: #ff4d4d;">Without WatchTower</h3>
-                <ul class="comparison-bullets">
-                    <li>Constant manual monitoring</li>
-                    <li>Risk of fatigue-led misses</li>
-                    <li>Limited perimeter visibility</li>
-                    <li>Fragmented paper logs</li>
-                </ul>
-            </div>
+<div class="feature-card bento-full">
+    <div class="card-header-wrapper">
+        <div class="card-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <polyline points="9 11 11 13 15 9" />
+            </svg>
         </div>
-    </section>
+        <h2 class="comparison-main-title">Operational Efficiency</h2>
+    </div>
 
+    <div class="comparison-row">
+        
+        <div class="comparison-column positive">
+            <h3 class="status-title"><span class="status-dot"></span> With WatchTower</h3>
+            <ul class="comparison-bullets">
+                <li>AI supports guards 24/7</li>
+                <li>Wider coverage, less strain</li>
+                <li>Instant SOP-aligned alerts</li>
+                <li>Audit-ready digital logs</li>
+            </ul>
+        </div>
+
+        <div class="comparison-divider"></div>
+
+        <div class="comparison-column negative">
+            <h3 class="status-title"><span class="status-dot"></span> Without WatchTower</h3>
+            <ul class="comparison-bullets">
+                <li>Constant manual monitoring</li>
+                <li>Risk of fatigue-led misses</li>
+                <li>Limited perimeter visibility</li>
+                <li>Fragmented paper logs</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<style>
+/* Container & Header */
+.feature-card.bento-full {
+    background: #111;
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #222;
+}
+
+.card-header-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 15px;
+}
+
+.comparison-main-title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* Row Layout */
+.comparison-row {
+    display: flex;
+    gap: 40px;
+    position: relative;
+}
+
+.comparison-column {
+    flex: 1;
+}
+
+/* Divider Line */
+.comparison-divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #333, transparent);
+}
+
+/* Titles and States */
+.status-title {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.positive .status-title { color: var(--accent, #FFD700); }
+.negative .status-title { color: #ff4d4d; }
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.positive .status-dot { background: var(--accent, #FFD700); box-shadow: 0 0 10px var(--accent); }
+.negative .status-dot { background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; }
+
+/* Bullets */
+.comparison-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comparison-bullets li {
+    color: #a0a0a0;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+}
+
+.comparison-bullets li::before {
+    content: "→";
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.positive .comparison-bullets li::before { color: var(--accent, #FFD700); }
+.negative .comparison-bullets li::before { color: #ff4d4d; }
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .comparison-row {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .comparison-divider {
+        height: 1px;
+        width: 100%;
+    }
+}
+</style>
     <style>
         /* --- GRID SYSTEM --- */
         .features-grid {

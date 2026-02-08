@@ -840,4 +840,1122 @@
                             <div class="cap-text">
                                 <h4>Rule-Based Patrols</h4>
                                 <p>Conducts scheduled, rule-based patrols using cameras covering remote, blind, or
-                  
+                                    restricted areas.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Extended Reach</h4>
+                                <p>Seamlessly covers high-risk or difficult areas that are hard for guards to reach
+                                    physically.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
+                                    <line x1="16" y1="8" x2="2" y2="22" />
+                                    <line x1="17.5" y1="15" x2="9" y2="15" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Intelligent Autopilot</h4>
+                                <p>Do it yourself, let it run on autopilot, or fully automate your surveillance rounds.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Unwavering Consistency</h4>
+                                <p>The system follows your exact instructions (SOPs) every single time, without
+                                    shortcuts.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Verified Reporting</h4>
+                                <p>Automatic generation of time-stamped patrol logs and comprehensive incident reports.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        /* --- VIRTUAL PATROL STYLES --- */
+        .virtual-patrol {
+            padding: 100px 0;
+        }
+
+        .patrol-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .patrol-subtitle {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        /* MONITOR UI */
+        .patrol-monitor {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.05);
+        }
+
+        .monitor-header {
+            background: #111;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-family: monospace;
+            font-size: 0.75rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        .monitor-feed {
+            height: 350px;
+            background: #050505;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* The Animated Scan Line */
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(251, 191, 36, 0.3);
+            top: 0;
+            animation: scan 4s linear infinite;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .patrol-status-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(39, 201, 63, 0.1);
+            color: #27c93f;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            border: 1px solid rgba(39, 201, 63, 0.3);
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.4);
+            font-family: monospace;
+            font-size: 0.7rem;
+        }
+
+        .monitor-footer {
+            padding: 12px 20px;
+            background: #111;
+            display: flex;
+            gap: 20px;
+            font-family: monospace;
+            font-size: 0.7rem;
+        }
+
+        /* Animations */
+        @keyframes scan {
+            to {
+                top: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Mobile Stack */
+        @media (max-width: 992px) {
+            .patrol-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .patrol-visual {
+                order: 2;
+            }
+        }
+    </style>
+    <style>
+        /* --- PILL SHAPE CTA --- */
+        .command-cta {
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button.pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--accent, #fbbf24);
+            color: #000;
+            padding: 12px 12px 12px 28px;
+            /* Extra left padding for text */
+            border-radius: 100px;
+            /* Forces the pill shape */
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* The circle containing the arrow */
+        .arrow-circle {
+            width: 40px;
+            height: 40px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Hover State */
+        .cta-button.pill:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: #fff;
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button.pill:hover .arrow-circle {
+            transform: translateX(3px);
+            background: var(--accent, #fbbf24);
+            color: #000;
+        }
+
+        .cta-note {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: var(--text-dim, #71717a);
+            font-family: monospace;
+            opacity: 0.8;
+        }
+
+        /* Responsive adjustment */
+        @media (max-width: 992px) {
+            .command-cta {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* --- CAPABILITY LIST HOVER --- */
+
+        .capability-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            perspective: 1000px;
+            /* Adds depth for children */
+        }
+
+        .capability-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: default;
+            border: 1px solid transparent;
+        }
+
+        /* 1. Item Container Hover */
+        .capability-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+            /* Magnetic slide effect */
+        }
+
+        /* 2. Icon Rotation & Glow */
+        .capability-item .cap-icon {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .capability-item:hover .cap-icon {
+            background: rgba(251, 191, 36, 0.2);
+            /* Accent color glow */
+            color: var(--accent, #fbbf24);
+            transform: rotate(-10deg) scale(1.1);
+            /* Slight tilt */
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
+        }
+
+        /* 3. Text Color & Focus */
+        .capability-item .cap-text h4 {
+            transition: color 0.3s ease;
+        }
+
+        .capability-item:hover .cap-text h4 {
+            color: var(--accent, #fbbf24);
+        }
+
+        .capability-item .cap-text p {
+            transition: color 0.3s ease;
+        }
+
+        .capability-item:hover .cap-text p {
+            color: #fff;
+            /* Brighten text on hover */
+        }
+
+        /* 4. Subtle Icon Animation (Inside SVG) */
+        .capability-item:hover .cap-icon svg {
+            filter: drop-shadow(0 0 5px var(--accent, #fbbf24));
+        }
+
+        /* --- SECTION LAYOUT --- */
+        .command-center {
+            padding: 80px 0;
+
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* Two columns for desktop */
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* --- TEXT CONTENT --- */
+        .section-subtitle {
+            color: var(--text-dim, #a1a1aa);
+            margin: 15px 0 40px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .capability-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .capability-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .cap-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent, #fbbf24);
+        }
+
+        .cap-text h4 {
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+        }
+
+        .cap-text p {
+            margin: 0;
+            color: #71717a;
+            font-size: 0.9rem;
+        }
+
+        /* --- LIVE FEED MOCKUP --- */
+        .dashboard-mockup {
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .mockup-header {
+            background: #1a1a1a;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mockup-title {
+            margin-left: auto;
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: #555;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .red {
+            background: #ff5f56;
+        }
+
+        .yellow {
+            background: #ffbd2e;
+        }
+
+        .green {
+            background: #27c93f;
+        }
+
+        .mockup-screen {
+            height: 300px;
+            position: relative;
+            background: #0a0a0a;
+            overflow: hidden;
+        }
+
+        /* Radar Animation */
+        .radar-sweep {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: conic-gradient(from 0deg, transparent 70%, rgba(251, 191, 36, 0.08) 100%);
+            animation: sweep 5s linear infinite;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Live Feed UI */
+        .live-ui div[class^="corner-"] {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-right: 0;
+            border-bottom: 0;
+        }
+
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-left: 0;
+            border-bottom: 0;
+        }
+
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-right: 0;
+            border-top: 0;
+        }
+
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-left: 0;
+            border-top: 0;
+        }
+
+        .status-bar {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-dot {
+            width: 6px;
+            height: 6px;
+            background: #ff4d4d;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        .camera-id {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: monospace;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        /* Keyframes */
+        @keyframes sweep {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        /* --- RESPONSIVE LOGIC --- */
+        @media (max-width: 992px) {
+            .command-grid {
+                grid-template-columns: 2fr;
+                /* Stack columns on tablet/mobile */
+                text-align: center;
+            }
+
+            .capability-item {
+                justify-content: center;
+                text-align: left;
+            }
+
+            .command-visual {
+                order: 2;
+                /* Ensures feed is below the text */
+                max-width: 600px;
+                margin: 0 auto;
+                width: 100%;
+            }
+        }
+    </style>
+    <section class="smart-surveillance" id="smart-surveillance">
+        <div class="container">
+            <div class="surveillance-grid">
+                <div class="surveillance-content">
+                    <div class="badge">AI-Powered Intelligence</div>
+                    <h2 class="section-title">Smart <span class="gradient-text">Surveillance.</span></h2>
+                    <h3 class="surveillance-subtitle">Detect Problems Before They Happen.</h3>
+                    <p class="section-subtitle">
+                        Most cameras just record. WatchTower understands what it sees. The system ignores swaying trees
+                        or stray cats but alerts you instantly if a person or car is where they shouldn't be.
+                    </p>
+
+                    <div class="capability-list">
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Smart Detection</h4>
+                                <p>Instantly spots people, vehicles, and suspicious behavior while filtering out
+                                    environmental noise.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Real Alerts</h4>
+                                <p>Get notified for things that matter—like tailgating or someone entering after hours.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Instant Video Search</h4>
+                                <p>Stop scrubbing through hours of footage. Search by time, location, or event type
+                                    instantly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="surveillance-visual">
+                    <div class="ai-monitor">
+                        <div class="grid-overlay"></div>
+                        <div class="scan-line"></div>
+
+                        <div class="detection-container vehicle-alert">
+                            <svg class="car-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01ZM6.85 7H17.15L18.22 10.11H5.78L6.85 7ZM19 17H5V12H19V17ZM7.5 16C8.33 16 9 15.33 9 14.5C9 13.67 8.33 13 7.5 13C6.67 13 6 13.67 6 14.5C6 15.33 6.67 16 7.5 16ZM16.5 16C17.33 16 18 15.33 18 14.5C18 13.67 17.33 13 16.5 13C15.67 13 15 13.67 15 14.5C15 15.33 15.67 16 16.5 16Z"
+                                    fill="currentColor" />
+                            </svg>
+
+                            <div class="bounding-box"></div>
+                            <div class="detection-label">ANOMALY: UNAUTHORIZED VEHICLE</div>
+
+                            <div class="radar-ring"></div>
+                        </div>
+
+                        <div class="search-overlay">
+                            <div class="search-bar">"Smart Surveillance"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        /* Container for the car and the AI box */
+        .detection-container {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The Car SVG Styling */
+        .car-svg {
+            width: 100px;
+            color: #ff4444;
+            /* Alert Red */
+            filter: drop-shadow(0 0 10px rgba(255, 68, 68, 0.8));
+            z-index: 2;
+        }
+
+        /* The Red Bounding Box */
+        .bounding-box {
+            position: absolute;
+            width: 140px;
+            height: 100px;
+            border: 2px solid #ff4444;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+        }
+
+        /* The Alert Label */
+        .detection-label {
+            position: absolute;
+            top: -30px;
+            background: #ff4444;
+            color: white;
+            font-family: monospace;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* Pulsing Radar Ring */
+        .radar-ring {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px solid rgba(255, 68, 68, 0.5);
+            border-radius: 50%;
+            animation: radar-pulse 2s infinite;
+        }
+
+        @keyframes radar-pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        /* Background Grid (Optional Detail) */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* --- SMART SURVEILLANCE STYLES --- */
+        .smart-surveillance {
+            padding: 100px 0;
+        }
+
+        .surveillance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .surveillance-subtitle {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* AI MONITOR VISUAL */
+        .ai-monitor {
+            position: relative;
+            height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('your-camera-background.jpg');
+            /* Optional: Add a dark security cam image here */
+            background-color: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.05);
+        }
+
+        /* AI Bounding Boxes */
+        .detection-box {
+            position: absolute;
+            border: 2px solid;
+            padding: 5px;
+        }
+
+        .detection-box.person {
+            top: 20%;
+            left: 20%;
+            width: 120px;
+            height: 220px;
+            border-color: #00f2ff;
+            /* Cyan for recognized objects */
+            background: rgba(0, 242, 255, 0.1);
+        }
+
+        .detection-box.vehicle {
+            top: 45%;
+            left: 55%;
+            width: 200px;
+            height: 140px;
+            border-color: #ff4444;
+            /* Red for alerts */
+            background: rgba(255, 68, 68, 0.1);
+        }
+
+        .detection-box .label {
+            position: absolute;
+            top: -25px;
+            left: -2px;
+            font-family: monospace;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            color: #fff;
+            background: inherit;
+            white-space: nowrap;
+        }
+
+        /* Search Bar Mockup */
+        .search-overlay {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 50px;
+            color: #fff;
+            font-family: monospace;
+            font-size: 0.8rem;
+            text-align: center;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .surveillance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .surveillance-visual {
+                order: 2;
+            }
+        }
+    </style>
+<section class="smart-surveillance" id="access-management">
+    <div class="container">
+        <div class="surveillance-grid">
+            
+            <div class="ac-visual-wrapper">
+                <div class="ac-monitor-frame">
+                    <div class="ac-scan-overlay"></div>
+                    <div class="ac-beam-line"></div>
+                    
+                    <div class="ac-ui-header">
+                        <div class="ac-live-box">
+                            <span class="ac-status-dot"></span>
+                            <span class="ac-status-label">TERMINAL ACTIVE</span>
+                        </div>
+                        <span class="ac-timer">JAN 27, 2026 | 10:51:54 AM</span>
+                    </div>
+
+                    <div class="ac-scan-viewport">
+                        <div class="ac-target-box">
+                             <div class="ac-corner-brackets"></div>
+                             <div class="ac-reticle-bar"></div>
+                             <svg class="ac-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                             </svg>
+                        </div>
+                    </div>
+
+                    <div class="ac-log-stack">
+                        <div class="ac-entry ac-anim-up">
+                            <div class="ac-entry-meta">
+                                <span class="ac-meta-label">ID VERIFIED</span>
+                                <span class="ac-meta-val">FACIAL RECOGNITION</span>
+                            </div>
+                            <div class="ac-tag-approved">GRANTED</div>
+                        </div>
+                        
+                        <div class="ac-entry ac-anim-up ac-delay-1">
+                            <div class="ac-entry-meta">
+                                <span class="ac-meta-label">LPR SCAN</span>
+                                <span class="ac-meta-val">PLATE: AD12 34</span>
+                            </div>
+                            <div class="ac-tag-approved">GRANTED</div>
+                        </div>
+                    </div>
+
+                    <div class="ac-footer-info">
+                        <div class="ac-sync-text">VisitorPass & GatePass Synced...</div>
+                    </div>
+                </div>
+            </div>
+<div class="surveillance-content">
+                    <div class="badge">AI-Powered Intelligence</div>
+                    <h2 class="section-title">Smart <span class="gradient-text">Surveillance.</span></h2>
+                    <h3 class="surveillance-subtitle">Detect Problems Before They Happen.</h3>
+                    <p class="section-subtitle">
+                        Most cameras just record. WatchTower understands what it sees. The system ignores swaying trees
+                        or stray cats but alerts you instantly if a person or car is where they shouldn't be.
+                    </p>
+
+                    <div class="capability-list">
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Smart Detection</h4>
+                                <p>Instantly spots people, vehicles, and suspicious behavior while filtering out
+                                    environmental noise.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Real Alerts</h4>
+                                <p>Get notified for things that matter—like tailgating or someone entering after hours.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Instant Video Search</h4>
+                                <p>Stop scrubbing through hours of footage. Search by time, location, or event type
+                                    instantly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* --- ACCESS CONTROL (AC) SCOPED STYLES --- */
+:root {
+    --ac-gold: #FFD700;
+    --ac-gold-dim: rgba(255, 215, 0, 0.1);
+    --ac-bg: #0A0A05;
+}
+
+.ac-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Visual Monitor */
+.ac-monitor-frame {
+    background: var(--ac-bg);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.ac-ui-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    background: var(--ac-gold-dim);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.ac-status-label, .ac-timer {
+    color: var(--ac-gold);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.ac-status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--ac-gold);
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: ac-pulse 1.5s infinite;
+}
+
+/* Scanning Elements */
+.ac-beam-line {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.05), transparent);
+    animation: ac-sweep 4s linear infinite;
+    z-index: 1;
+}
+
+.ac-target-box {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 40px auto;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-corner-brackets {
+    position: absolute;
+    inset: -5px;
+}
+
+.ac-corner-brackets::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 15px; height: 15px;
+    border-top: 2px solid var(--ac-gold); border-left: 2px solid var(--ac-gold);
+}
+
+.ac-reticle-bar {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--ac-gold);
+    box-shadow: 0 0 10px var(--ac-gold);
+    animation: ac-scan-bar 3s ease-in-out infinite;
+}
+
+.ac-svg-icon {
+    width: 40px;
+    stroke: var(--ac-gold);
+}
+
+/* Log Stack */
+.ac-log-stack {
+    padding: 20px;
+}
+
+.ac-entry {
+    background: rgba(255, 215, 0, 0.05);
+    border-left: 3px solid var(--ac-gold);
+    margin-bottom: 8px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ac-meta-label { font-size: 10px; color: var(--ac-gold); display: block; }
+.ac-meta-val { font-size: 12px; color: white; font-weight: 500; }
+
+.ac-tag-approved {
+    background: var(--ac-gold);
+    color: black;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+/* Animations */
+@keyframes ac-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes ac-sweep {
+    from { top: -100px; }
+    to { top: 100%; }
+}
+
+@keyframes ac-scan-bar {
+    0%, 100% { top: 0; }
+    50% { top: 100%; }
+}
+
+/* Content Styles */
+.ac-badge-gold {
+    background: var(--ac-gold-dim);
+    color: var(--ac-gold);
+    border: 1px solid var(--ac-gold);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.ac-gradient-gold {
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.ac-icon-box {
+    color: var(--ac-gold);
+    margin-right: 15px;
+}
+
+@media (max-width: 900px) {
+    .ac-grid { grid-template-columns: 1fr; }
+}
+</style>
+</body>
+
+</html>

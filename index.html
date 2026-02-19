@@ -9,64 +9,6 @@
         rel="stylesheet">
 
     <style>
-        /* --- PLAY BUTTON ANIMATION --- */
-        .play-group {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            padding: 10px 28px 10px 10px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 100px;
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .play-group:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .wave-container {
-            position: relative;
-            width: 48px;
-            height: 48px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-
-        .play-group:hover .wave-container {
-            transform: scale(1.1);
-        }
-
-        .wave-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            animation: ripple 2.8s infinite;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-
-            100% {
-                transform: scale(2.5);
-                opacity: 0;
-            }
-        }
-
         :root {
             --bg: #02040a;
             --accent: #fbbf24;
@@ -75,11 +17,9 @@
             --glass-border: rgba(255, 255, 255, 0.08);
         }
 
-        /* 1. THE "SMOOTH FLOW" FIX */
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 100px;
-            /* Prevents header from covering section titles */
         }
 
         * {
@@ -151,9 +91,20 @@
             text-decoration: none;
         }
 
+        .brand {
+            display: flex;
+            align-items: center;
+        }
+
         .brand-img {
-            height: 24px;
+            height: 40px;
             width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .brand:hover .brand-img {
+            transform: scale(1.06);
         }
 
         .nav-menu {
@@ -165,6 +116,7 @@
         .nav-links {
             display: flex;
             gap: 5px;
+            align-items: center;
         }
 
         .nav-links a {
@@ -182,6 +134,241 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        /* --- PRODUCTS DROPDOWN --- */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+            background: transparent;
+            border: none;
+            font-family: inherit;
+        }
+
+        .nav-dropdown-trigger:hover,
+        .nav-dropdown.open .nav-dropdown-trigger {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-chevron {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .nav-dropdown.open .dropdown-chevron {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-panel {
+            position: absolute;
+            top: calc(100% + 18px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px) scale(0.97);
+            width: 560px;
+            background: rgba(8, 10, 18, 0.97);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 24px;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.04);
+        }
+
+        .nav-dropdown.open .dropdown-panel {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        .dropdown-header {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            padding: 4px 14px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 10px;
+        }
+
+        .dropdown-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.07);
+            transform: translateY(-1px);
+        }
+
+        .dropdown-item:hover .di-icon-wrap {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .dropdown-item:hover .di-icon-wrap svg {
+            stroke: var(--accent);
+            filter: drop-shadow(0 0 6px rgba(251,191,36,0.4));
+        }
+
+        .dropdown-item:hover .di-title {
+            color: var(--accent);
+        }
+
+        .di-icon-wrap {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .di-icon-wrap svg {
+            transition: all 0.3s ease;
+            stroke: rgba(255,255,255,0.55);
+        }
+
+        /* Animated SVG icons */
+        .di-icon-wrap .icon-radar {
+            animation: rotate-slow 8s linear infinite;
+        }
+
+        .dropdown-item:hover .di-icon-wrap .icon-radar {
+            animation-duration: 2s;
+        }
+
+        .di-icon-wrap .icon-scan-line {
+            animation: scan-up 2.5s ease-in-out infinite;
+        }
+
+        .di-icon-wrap .icon-pulse-ring {
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        .di-icon-wrap .icon-blink {
+            animation: blink 1.2s ease-in-out infinite;
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes scan-up {
+            0%, 100% { transform: translateY(4px); opacity: 0.3; }
+            50% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.85); opacity: 1; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .di-text { flex: 1; min-width: 0; }
+
+        .di-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3px;
+            transition: color 0.3s;
+        }
+
+        .di-desc {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.4;
+        }
+
+        .dropdown-footer {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px 0;
+        }
+
+        .df-badge {
+            font-size: 0.7rem;
+            color: rgba(251,191,36,0.7);
+            background: rgba(251,191,36,0.08);
+            border: 1px solid rgba(251,191,36,0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .df-link {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+
+        .df-link:hover { color: white; }
+
+        .df-link svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* --- BUTTON --- */
         .btn-client {
             background: white;
             color: black;
@@ -199,7 +386,36 @@
             background: var(--accent);
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HAMBURGER --- */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 25px;
+            height: 20px;
+            position: relative;
+            margin-right: 15px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 8px; width: 70%; right: 0; }
+        .hamburger span:nth-child(3) { top: 16px; }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 8px; }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 8px; }
+
+        /* --- HERO --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -247,6 +463,55 @@
             font-weight: 300;
         }
 
+        /* --- PLAY BUTTON --- */
+        .play-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            padding: 10px 28px 10px 10px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .play-group:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .wave-container {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .play-group:hover .wave-container { transform: scale(1.1); }
+
+        .wave-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            animation: ripple 2.8s infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
         /* --- FEATURES SECTION --- */
         .features {
             padding: 120px 5%;
@@ -264,12 +529,6 @@
             margin-bottom: 20px;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
         .feature-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
@@ -282,7 +541,6 @@
             overflow: hidden;
         }
 
-        /* This class is triggered by JS as you scroll */
         .feature-card.show {
             opacity: 1;
             transform: translateY(0);
@@ -295,677 +553,287 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .bento-large {
-            grid-column: span 2;
+        /* --- COMPARISON CARD --- */
+        .feature-card.bento-full {
+            background: #111;
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid #222;
+            opacity: 1;
+            transform: none;
         }
 
-        .card-icon {
-            margin-bottom: 25px;
-            display: block;
-            color: var(--accent);
+        .card-header-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
         }
 
-        .feature-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            font-weight: 500;
+        .comparison-main-title {
+            margin: 0;
+            font-size: 1.5rem;
+            color: white;
         }
 
-        .feature-card p {
-            font-size: 0.95rem;
-            color: var(--text-dim);
+        .comparison-row {
+            display: flex;
+            gap: 40px;
+            position: relative;
         }
+
+        .comparison-column { flex: 1; }
+
+        .comparison-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #333, transparent);
+        }
+
+        .status-title {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .positive .status-title { color: var(--accent); }
+        .negative .status-title { color: #ff4d4d; }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .positive .status-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+        .negative .status-dot { background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; }
 
         .comparison-bullets {
             list-style: none;
-            margin-top: 20px;
+            padding: 0;
+            margin: 0;
         }
 
         .comparison-bullets li {
-            font-size: 0.95rem;
+            color: #a0a0a0;
             margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-            color: var(--text-dim);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
         }
 
         .comparison-bullets li::before {
             content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
+            margin-right: 10px;
             font-weight: bold;
         }
 
-        .location-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
+        .positive .comparison-bullets li::before { color: var(--accent); }
+        .negative .comparison-bullets li::before { color: #ff4d4d; }
+
+        @media (max-width: 768px) {
+            .comparison-row { flex-direction: column; gap: 30px; }
+            .comparison-divider { height: 1px; width: 100%; }
         }
 
-        .tag-chip {
-            padding: 8px 18px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            transition: 0.3s;
-        }
-
-        .tag-chip:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* --- MOBILE --- */
-        @media (max-width: 900px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .bento-large {
-                grid-column: span 1;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            /* Simplified for example */
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="bg-glow"></div>
-
-    <div class="nav-wrapper" id="navbar">
-        <nav class="pill-nav">
-            <a href="#" class="logo">
-                <img src="./images/watchtower.png" alt="Logo" class="brand-img">
-                WatchTower
-            </a>
-
-            <div class="nav-menu">
-                <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#ai-engine">AI Engine</a>
-                    <a href="#records">Records</a>
-                </div>
-                <a href="#" class="btn-client">Client Portal</a>
-            </div>
-        </nav>
-    </div>
-
-    <section class="hero">
-        <div class="badge">Next-Gen AI Surveillance</div>
-        <h1>Smart Security <br> <span class="gradient-text">Operations.</span></h1>
-        <p>WatchTower is an AI-powered operations platform that uses automation to monitor sites, conduct virtual
-            patrols, and maintain audit-ready records.</p>
-
-        <div class="play-group">
-            <div class="wave-container">
-                <div class="wave-ring"></div>
-                <div class="wave-ring" style="animation-delay: 0.8s;"></div>
-                <div class="wave-ring" style="animation-delay: 1.6s;"></div>
-
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="black">
-                    <path d="M8 5v14l11-7z" />
-                </svg>
-            </div>
-            <span style="font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px; color: white;">
-                VIEW SYSTEM IN ACTION
-            </span>
-        </div>
-    </section>
-    <section class="features" id="features">
-        <div class="section-header">
-            <div class="badge" style="margin-bottom: 10px;">The WatchTower Advantage</div>
-            <h2 class="section-title">Better Security, <span class="gradient-text">Less Stress.</span></h2>
-            <p style="color: var(--text-dim); max-width: 700px; margin: 0 auto;">
-                Our AI handles the fatigue-heavy task of constant monitoring, allowing your team to focus on high-stakes
-                response.
-            </p>
-        </div>
-
-<div class="feature-card bento-full">
-    <div class="card-header-wrapper">
-        <div class="card-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <polyline points="9 11 11 13 15 9" />
-            </svg>
-        </div>
-        <h2 class="comparison-main-title">Operational Efficiency</h2>
-    </div>
-
-    <div class="comparison-row">
-        
-        <div class="comparison-column positive">
-            <h3 class="status-title"><span class="status-dot"></span> With WatchTower</h3>
-            <ul class="comparison-bullets">
-                <li>AI supports guards 24/7</li>
-                <li>Wider coverage, less strain</li>
-                <li>Instant SOP-aligned alerts</li>
-                <li>Audit-ready digital logs</li>
-            </ul>
-        </div>
-
-        <div class="comparison-divider"></div>
-
-        <div class="comparison-column negative">
-            <h3 class="status-title"><span class="status-dot"></span> Without WatchTower</h3>
-            <ul class="comparison-bullets">
-                <li>Constant manual monitoring</li>
-                <li>Risk of fatigue-led misses</li>
-                <li>Limited perimeter visibility</li>
-                <li>Fragmented paper logs</li>
-            </ul>
-        </div>
-
-    </div>
-</div>
-
-<style>
-/* Container & Header */
-.feature-card.bento-full {
-    background: #111;
-    border-radius: 20px;
-    padding: 30px;
-    border: 1px solid #222;
-}
-
-.card-header-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #222;
-    padding-bottom: 15px;
-}
-
-.comparison-main-title {
-    margin: 0;
-    font-size: 1.5rem;
-    color: white;
-}
-
-/* Row Layout */
-.comparison-row {
-    display: flex;
-    gap: 40px;
-    position: relative;
-}
-
-.comparison-column {
-    flex: 1;
-}
-
-/* Divider Line */
-.comparison-divider {
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, #333, transparent);
-}
-
-/* Titles and States */
-.status-title {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.positive .status-title { color: var(--accent, #FFD700); }
-.negative .status-title { color: #ff4d4d; }
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-}
-
-.positive .status-dot { background: var(--accent, #FFD700); box-shadow: 0 0 10px var(--accent); }
-.negative .status-dot { background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; }
-
-/* Bullets */
-.comparison-bullets {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.comparison-bullets li {
-    color: #a0a0a0;
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-}
-
-.comparison-bullets li::before {
-    content: "→";
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-.positive .comparison-bullets li::before { color: var(--accent, #FFD700); }
-.negative .comparison-bullets li::before { color: #ff4d4d; }
-
-/* Mobile Optimization */
-@media (max-width: 768px) {
-    .comparison-row {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .comparison-divider {
-        height: 1px;
-        width: 100%;
-    }
-}
-</style>
-    <style>
-        /* --- GRID SYSTEM --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            /* 2 equal columns */
-            gap: 20px;
+        /* --- CONTAINER & SHARED --- */
+        .container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 0 auto;
             padding: 0 20px;
         }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 30px;
-            transition: all 0.3s ease;
-        }
-
-        /* Column Spanning Logic */
-        .bento-full {
-            grid-column: span 2;
-        }
-
-        /* Takes whole row */
-        .bento-half {
-            grid-column: span 1;
-        }
-
-        /* Takes half row */
-
-        /* --- COMPARISON BULLETS --- */
-        .comparison-bullets {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        .comparison-bullets li {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
+        .section-subtitle {
             color: var(--text-dim);
+            margin: 15px 0 40px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* --- CAPABILITY LIST --- */
+        .capability-list {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 25px;
+            perspective: 1000px;
         }
 
-        .comparison-bullets li::before {
-            content: "•";
-            color: inherit;
-        }
-
-        /* --- TAG CHIPS --- */
-        .location-tags {
+        .capability-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag-chip {
-            padding: 6px 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50px;
-            font-size: 0.8rem;
+            gap: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: default;
             border: 1px solid transparent;
-            transition: 0.3s;
+            align-items: flex-start;
         }
 
-        .tag-chip:hover {
-            border-color: var(--accent);
+        .capability-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+        }
+
+        .cap-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
             background: rgba(251, 191, 36, 0.1);
-        }
-
-        /* --- RESPONSIVENESS --- */
-        @media (max-width: 768px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-                /* Stack everything on mobile */
-            }
-
-            .bento-full,
-            .bento-half {
-                grid-column: span 1;
-            }
-        }
-
-        /* --- SINGLE STEP ROTATION --- */
-
-        .card-icon {
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            margin-bottom: 20px;
-            /* This transition makes the rotation feel snappy and professional */
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-                background 0.3s ease,
-                border-color 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .feature-card:hover .card-icon {
-            /* Rotates only 45 degrees - perfect for a "locked-in" feel */
-            transform: rotate(45deg) scale(1.1);
-            background: rgba(251, 191, 36, 0.1);
-            border-color: rgba(251, 191, 36, 0.3);
-        }
-
-        /* Counter-rotate the SVG back so the icon stays upright while the box rotates */
-        .feature-card:hover .card-icon svg {
-            transform: rotate(-45deg);
             color: var(--accent);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Red variation for the "Without" card */
-        .feature-card:hover h3[style*="#ff4d4d"]~.card-icon,
-        .feature-card:has(h3[style*="#ff4d4d"]):hover .card-icon {
-            background: rgba(255, 77, 77, 0.1);
-            border-color: rgba(255, 77, 77, 0.3);
+        .capability-item:hover .cap-icon {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--accent);
+            transform: rotate(-10deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
         }
 
-        .feature-card:hover h3[style*="#ff4d4d"]~.card-icon svg,
-        .feature-card:has(h3[style*="#ff4d4d"]):hover .card-icon svg {
-            color: #ff4d4d;
+        .cap-text h4 {
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+            transition: color 0.3s ease;
         }
-    </style>
 
+        .capability-item:hover .cap-text h4 { color: var(--accent); }
 
-    <script>
-
-        // 1. Navbar Scroll Logic (Hide on scroll down, show on up)
-        let lastScrollY = window.scrollY;
-        const navbar = document.getElementById('navbar');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                navbar.classList.add('nav-hidden');
-            } else {
-                navbar.classList.remove('nav-hidden');
-            }
-            lastScrollY = window.scrollY;
-        });
-
-        // 2. Intersection Observer (Reveal cards as they enter view)
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.feature-card').forEach(card => {
-            observer.observe(card);
-        });
-    </script>
-    <section class="command-center" id="command-center">
-        <div class="container">
-            <div class="command-grid">
-
-                <div class="command-content">
-                    <div class="badge">Operational Control</div>
-                    <h2 class="section-title">The <span class="gradient-text">Command Center.</span></h2>
-                    <p class="section-subtitle">
-                        Stop juggling ten different systems. WatchTower brings all your
-                        cameras, alerts, and patrol updates onto one intelligent screen.
-                    </p>
-                    <div class="command-cta">
-                    </div>
-
-                    <div class="capability-list">
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                                    <line x1="8" y1="21" x2="16" y2="21" />
-                                    <line x1="12" y1="17" x2="12" y2="21" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Unified Dashboard</h4>
-                                <p>Monitor cameras, visitors, vehicles, and patrols seamlessly within a single,
-                                    intelligent interface.</p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-                                    <line x1="12" y1="18" x2="12.01" y2="18" />
-                                    <path d="M17 9l3 3-3 3M7 9l-3 3 3 3" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Secure Multi-Platform Access</h4>
-                                <p>Access your security network securely from any desktop workstation or mobile device,
-                                    anywhere.</p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                    <circle cx="9" cy="7" r="4" />
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Role-Based Visibility</h4>
-                                <p>Custom permissions and visibility tiers designed for guards, supervisors, and
-                                    management.</p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Real-Time Operational Awareness</h4>
-                                <p>Maintain constant oversight with live updates and instant alerts across all
-                                    operational zones.</p>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="command-visual">
-                    <div class="dashboard-mockup">
-                        <div class="mockup-header">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                            <span class="mockup-title">WatchTower_Core_v2.0</span>
-                        </div>
-
-                        <div class="mockup-screen">
-                            <div class="radar-container">
-                                <div class="radar-sweep"></div>
-                                <div class="grid-overlay"></div>
-                            </div>
-
-                            <div class="live-ui">
-                                <div class="corner-tl"></div>
-                                <div class="corner-tr"></div>
-                                <div class="corner-bl"></div>
-                                <div class="corner-br"></div>
-
-                                <div class="status-bar">
-                                    <span class="rec-dot"></span>
-                                    <span class="live-text">REC ● 04:15:20 PM</span>
-                                </div>
-
-                                <div class="camera-id">CAM_01 // ENTRANCE_ZONE</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </section>
-    <section class="virtual-patrol" id="virtual-patrol">
-        <div class="container">
-            <div class="patrol-grid">
-
-                <div class="patrol-visual">
-                    <div class="patrol-monitor">
-                        <div class="monitor-header">
-                            <div class="status-indicator"><span class="pulse-dot"></span>AUTOPILOT ACTIVE</div>
-                            <div class="system-time">08:45:12 PM</div>
-                        </div>
-                        <div class="monitor-feed">
-                            <div class="scan-line"></div>
-                            <div class="overlay-text">ZONE_04: PERIMETER_FENCE</div>
-                            <div class="patrol-status-badge">ROUNDS COMPLETED</div>
-                        </div>
-                        <div class="monitor-footer">
-                            <div class="stat"><span>RELIABILITY:</span> 100%</div>
-                            <div class="stat"><span>SHORTCUTS:</span> 0</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="patrol-content">
-                    <div class="badge">Autopilot Surveillance</div>
-                    <h2 class="section-title">Virtual <span class="gradient-text">Patrol.</span></h2>
-                    <h3 class="patrol-subtitle">Why Send Guards On Repetitive Rounds?</h3>
-                    <p class="section-subtitle">Let WatchTower handle the labor. The system follows your SOPs exactly
-                        every single time, without shortcuts or fatigue.</p>
-
-                    <div class="capability-list">
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <polyline points="12 6 12 12 16 14" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Rule-Based Patrols</h4>
-                                <p>Conducts scheduled, rule-based patrols using cameras covering remote, blind, or
-                                    restricted areas.</p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                    <circle cx="12" cy="10" r="3" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Extended Reach</h4>
-                                <p>Seamlessly covers high-risk or difficult areas that are hard for guards to reach
-                                    physically.</p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
-                                    <line x1="16" y1="8" x2="2" y2="22" />
-                                    <line x1="17.5" y1="15" x2="9" y2="15" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Intelligent Autopilot</h4>
-                                <p>Do it yourself, let it run on autopilot, or fully automate your surveillance rounds.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                    <polyline points="22 4 12 14.01 9 11.01" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Unwavering Consistency</h4>
-                                <p>The system follows your exact instructions (SOPs) every single time, without
-                                    shortcuts.</p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                    <polyline points="14 2 14 8 20 8" />
-                                    <line x1="16" y1="13" x2="8" y2="13" />
-                                    <line x1="16" y1="17" x2="8" y2="17" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Verified Reporting</h4>
-                                <p>Automatic generation of time-stamped patrol logs and comprehensive incident reports.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <style>
-        /* --- VIRTUAL PATROL STYLES --- */
-        .virtual-patrol {
-            padding: 100px 0;
+        .cap-text p {
+            margin: 0;
+            color: #71717a;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
         }
+
+        .capability-item:hover .cap-text p { color: #fff; }
+        .capability-item:hover .cap-icon svg { filter: drop-shadow(0 0 5px var(--accent)); }
+
+        /* --- COMMAND CENTER --- */
+        .command-center { padding: 80px 0; color: #fff; }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .dashboard-mockup {
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .mockup-header {
+            background: #1a1a1a;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mockup-title {
+            margin-left: auto;
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: #555;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .mockup-screen {
+            height: 300px;
+            position: relative;
+            background: #0a0a0a;
+            overflow: hidden;
+        }
+
+        .radar-sweep {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: conic-gradient(from 0deg, transparent 70%, rgba(251, 191, 36, 0.08) 100%);
+            animation: sweep 5s linear infinite;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .live-ui div[class^="corner-"] {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .corner-tl { top: 15px; left: 15px; border-right: 0; border-bottom: 0; }
+        .corner-tr { top: 15px; right: 15px; border-left: 0; border-bottom: 0; }
+        .corner-bl { bottom: 15px; left: 15px; border-right: 0; border-top: 0; }
+        .corner-br { bottom: 15px; right: 15px; border-left: 0; border-top: 0; }
+
+        .status-bar {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-dot {
+            width: 6px;
+            height: 6px;
+            background: #ff4d4d;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        .camera-id {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: monospace;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        @keyframes sweep { to { transform: rotate(360deg); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+        @media (max-width: 992px) {
+            .command-grid { grid-template-columns: 1fr; text-align: center; }
+            .capability-item { justify-content: center; text-align: left; }
+            .command-visual { order: 2; max-width: 600px; margin: 0 auto; width: 100%; }
+        }
+
+        /* --- VIRTUAL PATROL --- */
+        .virtual-patrol { padding: 100px 0; }
 
         .patrol-grid {
             display: grid;
@@ -974,13 +842,8 @@
             align-items: center;
         }
 
-        .patrol-subtitle {
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
+        .patrol-subtitle { color: #fff; margin-bottom: 10px; font-size: 1.3rem; }
 
-        /* MONITOR UI */
         .patrol-monitor {
             background: #0a0a0a;
             border: 1px solid #1a1a1a;
@@ -998,12 +861,7 @@
             font-size: 0.75rem;
         }
 
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent);
-        }
+        .status-indicator { display: flex; align-items: center; gap: 8px; color: var(--accent); }
 
         .pulse-dot {
             width: 8px;
@@ -1020,7 +878,6 @@
             overflow: hidden;
         }
 
-        /* The Animated Scan Line */
         .scan-line {
             position: absolute;
             width: 100%;
@@ -1062,492 +919,35 @@
             font-size: 0.7rem;
         }
 
-        /* Animations */
-        @keyframes scan {
-            to {
-                top: 100%;
-            }
-        }
+        @keyframes scan { to { top: 100%; } }
 
-        @keyframes blink {
-            50% {
-                opacity: 0.3;
-            }
-        }
-
-        /* Mobile Stack */
         @media (max-width: 992px) {
-            .patrol-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-
-            .patrol-visual {
-                order: 2;
-            }
-        }
-    </style>
-    <style>
-        /* --- PILL SHAPE CTA --- */
-        .command-cta {
-            margin-top: 40px;
-            margin-bottom: 20px;
+            .patrol-grid { grid-template-columns: 1fr; gap: 50px; }
+            .patrol-visual { order: 2; }
         }
 
-        .cta-button.pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            background: var(--accent, #fbbf24);
-            color: #000;
-            padding: 12px 12px 12px 28px;
-            /* Extra left padding for text */
-            border-radius: 100px;
-            /* Forces the pill shape */
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.15);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
+        /* --- SMART SURVEILLANCE --- */
+        .smart-surveillance { padding: 100px 0; }
 
-        /* The circle containing the arrow */
-        .arrow-circle {
-            width: 40px;
-            height: 40px;
-            background: #000;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        /* Hover State */
-        .cta-button.pill:hover {
-            transform: translateY(-3px) scale(1.02);
-            background: #fff;
-            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
-        }
-
-        .cta-button.pill:hover .arrow-circle {
-            transform: translateX(3px);
-            background: var(--accent, #fbbf24);
-            color: #000;
-        }
-
-        .cta-note {
-            margin-top: 15px;
-            font-size: 0.75rem;
-            color: var(--text-dim, #71717a);
-            font-family: monospace;
-            opacity: 0.8;
-        }
-
-        /* Responsive adjustment */
-        @media (max-width: 992px) {
-            .command-cta {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* --- CAPABILITY LIST HOVER --- */
-
-        .capability-list {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            perspective: 1000px;
-            /* Adds depth for children */
-        }
-
-        .capability-item {
-            display: flex;
-            gap: 20px;
-            padding: 15px;
-            border-radius: 12px;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: default;
-            border: 1px solid transparent;
-        }
-
-        /* 1. Item Container Hover */
-        .capability-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.05);
-            transform: translateX(10px);
-            /* Magnetic slide effect */
-        }
-
-        /* 2. Icon Rotation & Glow */
-        .capability-item .cap-icon {
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .capability-item:hover .cap-icon {
-            background: rgba(251, 191, 36, 0.2);
-            /* Accent color glow */
-            color: var(--accent, #fbbf24);
-            transform: rotate(-10deg) scale(1.1);
-            /* Slight tilt */
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
-        }
-
-        /* 3. Text Color & Focus */
-        .capability-item .cap-text h4 {
-            transition: color 0.3s ease;
-        }
-
-        .capability-item:hover .cap-text h4 {
-            color: var(--accent, #fbbf24);
-        }
-
-        .capability-item .cap-text p {
-            transition: color 0.3s ease;
-        }
-
-        .capability-item:hover .cap-text p {
-            color: #fff;
-            /* Brighten text on hover */
-        }
-
-        /* 4. Subtle Icon Animation (Inside SVG) */
-        .capability-item:hover .cap-icon svg {
-            filter: drop-shadow(0 0 5px var(--accent, #fbbf24));
-        }
-
-        /* --- SECTION LAYOUT --- */
-        .command-center {
-            padding: 80px 0;
-
-            color: #fff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .command-grid {
+        .surveillance-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            /* Two columns for desktop */
-            gap: 60px;
+            gap: 80px;
             align-items: center;
         }
 
-        /* --- TEXT CONTENT --- */
-        .section-subtitle {
-            color: var(--text-dim, #a1a1aa);
-            margin: 15px 0 40px 0;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
+        .surveillance-subtitle { color: #fff; margin-bottom: 20px; font-size: 1.5rem; font-weight: 600; }
 
-        .capability-list {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .capability-item {
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
-
-        .cap-icon {
-            flex-shrink: 0;
-            width: 44px;
-            height: 44px;
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent, #fbbf24);
-        }
-
-        .cap-text h4 {
-            margin: 0 0 4px 0;
-            font-size: 1rem;
-        }
-
-        .cap-text p {
-            margin: 0;
-            color: #71717a;
-            font-size: 0.9rem;
-        }
-
-        /* --- LIVE FEED MOCKUP --- */
-        .dashboard-mockup {
-            background: #111;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .mockup-header {
-            background: #1a1a1a;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .mockup-title {
-            margin-left: auto;
-            font-family: monospace;
-            font-size: 0.65rem;
-            color: #555;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .red {
-            background: #ff5f56;
-        }
-
-        .yellow {
-            background: #ffbd2e;
-        }
-
-        .green {
-            background: #27c93f;
-        }
-
-        .mockup-screen {
-            height: 300px;
+        .ai-monitor {
             position: relative;
-            background: #0a0a0a;
+            height: 450px;
+            background-color: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 24px;
             overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.05);
         }
 
-        /* Radar Animation */
-        .radar-sweep {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: conic-gradient(from 0deg, transparent 70%, rgba(251, 191, 36, 0.08) 100%);
-            animation: sweep 5s linear infinite;
-        }
-
-        .grid-overlay {
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-        /* Live Feed UI */
-        .live-ui div[class^="corner-"] {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .corner-tl {
-            top: 15px;
-            left: 15px;
-            border-right: 0;
-            border-bottom: 0;
-        }
-
-        .corner-tr {
-            top: 15px;
-            right: 15px;
-            border-left: 0;
-            border-bottom: 0;
-        }
-
-        .corner-bl {
-            bottom: 15px;
-            left: 15px;
-            border-right: 0;
-            border-top: 0;
-        }
-
-        .corner-br {
-            bottom: 15px;
-            right: 15px;
-            border-left: 0;
-            border-top: 0;
-        }
-
-        .status-bar {
-            position: absolute;
-            top: 20px;
-            left: 40px;
-            font-family: monospace;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .rec-dot {
-            width: 6px;
-            height: 6px;
-            background: #ff4d4d;
-            border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-
-        .camera-id {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: monospace;
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.3);
-            letter-spacing: 1px;
-        }
-
-        /* Keyframes */
-        @keyframes sweep {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.2;
-            }
-        }
-
-        /* --- RESPONSIVE LOGIC --- */
-        @media (max-width: 992px) {
-            .command-grid {
-                grid-template-columns: 2fr;
-                /* Stack columns on tablet/mobile */
-                text-align: center;
-            }
-
-            .capability-item {
-                justify-content: center;
-                text-align: left;
-            }
-
-            .command-visual {
-                order: 2;
-                /* Ensures feed is below the text */
-                max-width: 600px;
-                margin: 0 auto;
-                width: 100%;
-            }
-        }
-    </style>
-    <section class="smart-surveillance" id="smart-surveillance">
-        <div class="container">
-            <div class="surveillance-grid">
-                <div class="surveillance-content">
-                    <div class="badge">AI-Powered Intelligence</div>
-                    <h2 class="section-title">Smart <span class="gradient-text">Surveillance.</span></h2>
-                    <h3 class="surveillance-subtitle">Detect Problems Before They Happen.</h3>
-                    <p class="section-subtitle">
-                        Most cameras just record. WatchTower understands what it sees. The system ignores swaying trees
-                        or stray cats but alerts you instantly if a person or car is where they shouldn't be.
-                    </p>
-
-                    <div class="capability-list">
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Smart Detection</h4>
-                                <p>Instantly spots people, vehicles, and suspicious behavior while filtering out
-                                    environmental noise.</p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Real Alerts</h4>
-                                <p>Get notified for things that matter—like tailgating or someone entering after hours.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="capability-item">
-                            <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <circle cx="11" cy="11" r="8" />
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                                </svg>
-                            </div>
-                            <div class="cap-text">
-                                <h4>Instant Video Search</h4>
-                                <p>Stop scrubbing through hours of footage. Search by time, location, or event type
-                                    instantly.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="surveillance-visual">
-                    <div class="ai-monitor">
-                        <div class="grid-overlay"></div>
-                        <div class="scan-line"></div>
-
-                        <div class="detection-container vehicle-alert">
-                            <svg class="car-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01ZM6.85 7H17.15L18.22 10.11H5.78L6.85 7ZM19 17H5V12H19V17ZM7.5 16C8.33 16 9 15.33 9 14.5C9 13.67 8.33 13 7.5 13C6.67 13 6 13.67 6 14.5C6 15.33 6.67 16 7.5 16ZM16.5 16C17.33 16 18 15.33 18 14.5C18 13.67 17.33 13 16.5 13C15.67 13 15 13.67 15 14.5C15 15.33 15.67 16 16.5 16Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                            <div class="bounding-box"></div>
-                            <div class="detection-label">ANOMALY: UNAUTHORIZED VEHICLE</div>
-
-                            <div class="radar-ring"></div>
-                        </div>
-
-                        <div class="search-overlay">
-                            <div class="search-bar">"Smart Surveillance"</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <style>
-        /* Container for the car and the AI box */
         .detection-container {
             position: absolute;
             top: 40%;
@@ -1560,16 +960,13 @@
             justify-content: center;
         }
 
-        /* The Car SVG Styling */
         .car-svg {
             width: 100px;
             color: #ff4444;
-            /* Alert Red */
             filter: drop-shadow(0 0 10px rgba(255, 68, 68, 0.8));
             z-index: 2;
         }
 
-        /* The Red Bounding Box */
         .bounding-box {
             position: absolute;
             width: 140px;
@@ -1578,7 +975,6 @@
             box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
         }
 
-        /* The Alert Label */
         .detection-label {
             position: absolute;
             top: -30px;
@@ -1591,7 +987,6 @@
             white-space: nowrap;
         }
 
-        /* Pulsing Radar Ring */
         .radar-ring {
             position: absolute;
             width: 180px;
@@ -1602,99 +997,10 @@
         }
 
         @keyframes radar-pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1.4);
-                opacity: 0;
-            }
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
         }
 
-        /* Background Grid (Optional Detail) */
-        .grid-overlay {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-        /* --- SMART SURVEILLANCE STYLES --- */
-        .smart-surveillance {
-            padding: 100px 0;
-        }
-
-        .surveillance-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .surveillance-subtitle {
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        /* AI MONITOR VISUAL */
-        .ai-monitor {
-            position: relative;
-            height: 450px;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('your-camera-background.jpg');
-            /* Optional: Add a dark security cam image here */
-            background-color: #0a0a0a;
-            border: 2px solid #333;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.05);
-        }
-
-        /* AI Bounding Boxes */
-        .detection-box {
-            position: absolute;
-            border: 2px solid;
-            padding: 5px;
-        }
-
-        .detection-box.person {
-            top: 20%;
-            left: 20%;
-            width: 120px;
-            height: 220px;
-            border-color: #00f2ff;
-            /* Cyan for recognized objects */
-            background: rgba(0, 242, 255, 0.1);
-        }
-
-        .detection-box.vehicle {
-            top: 45%;
-            left: 55%;
-            width: 200px;
-            height: 140px;
-            border-color: #ff4444;
-            /* Red for alerts */
-            background: rgba(255, 68, 68, 0.1);
-        }
-
-        .detection-box .label {
-            position: absolute;
-            top: -25px;
-            left: -2px;
-            font-family: monospace;
-            font-size: 0.65rem;
-            padding: 2px 6px;
-            color: #fff;
-            background: inherit;
-            white-space: nowrap;
-        }
-
-        /* Search Bar Mockup */
         .search-overlay {
             position: absolute;
             bottom: 30px;
@@ -1716,68 +1022,857 @@
             border-left: 3px solid var(--accent);
         }
 
-        /* Responsive */
         @media (max-width: 992px) {
-            .surveillance-grid {
-                grid-template-columns: 1fr;
-            }
+            .surveillance-grid { grid-template-columns: 1fr; }
+            .surveillance-visual { order: 2; }
+        }
 
-            .surveillance-visual {
-                order: 2;
+        /* --- ACCESS CONTROL --- */
+        :root {
+            --ac-gold: #FFD700;
+            --ac-gold-dim: rgba(255, 215, 0, 0.1);
+            --ac-bg: #0A0A05;
+        }
+
+        .ac-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ac-monitor-frame {
+            background: var(--ac-bg);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .ac-ui-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            background: var(--ac-gold-dim);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .ac-status-label, .ac-timer {
+            color: var(--ac-gold);
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+
+        .ac-status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--ac-gold);
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: ac-pulse 1.5s infinite;
+        }
+
+        .ac-beam-line {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.05), transparent);
+            animation: ac-sweep 4s linear infinite;
+            z-index: 1;
+        }
+
+        .ac-target-box {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 40px auto;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ac-corner-brackets {
+            position: absolute;
+            inset: -5px;
+        }
+
+        .ac-corner-brackets::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            border-top: 2px solid var(--ac-gold);
+            border-left: 2px solid var(--ac-gold);
+        }
+
+        .ac-reticle-bar {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--ac-gold);
+            box-shadow: 0 0 10px var(--ac-gold);
+            animation: ac-scan-bar 3s ease-in-out infinite;
+        }
+
+        .ac-svg-icon { width: 40px; stroke: var(--ac-gold); }
+
+        .ac-log-stack { padding: 20px; }
+
+        .ac-entry {
+            background: rgba(255, 215, 0, 0.05);
+            border-left: 3px solid var(--ac-gold);
+            margin-bottom: 8px;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ac-meta-label { font-size: 10px; color: var(--ac-gold); display: block; }
+        .ac-meta-val { font-size: 12px; color: white; font-weight: 500; }
+
+        .ac-tag-approved {
+            background: var(--ac-gold);
+            color: black;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .ac-footer-info {
+            font-family: monospace;
+            font-size: 11px;
+            color: rgba(255, 215, 0, 0.5);
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .ac-live-box { display: flex; align-items: center; }
+
+        @keyframes ac-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        @keyframes ac-sweep {
+            from { top: -100px; }
+            to { top: 100%; }
+        }
+
+        @keyframes ac-scan-bar {
+            0%, 100% { top: 0; }
+            50% { top: 100%; }
+        }
+
+        @media (max-width: 900px) {
+            .ac-grid { grid-template-columns: 1fr; gap: 40px; }
+            .ac-visual-wrapper { order: 2; }
+            .surveillance-content { order: 1; text-align: center; }
+        }
+
+        /* --- PRICING --- */
+        .pricing-section { padding: 120px 0; }
+        .center { text-align: center; }
+
+        .pricing-grid {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .pricing-card {
+            background: #111;
+            border-radius: 24px;
+            padding: 50px 40px;
+            border: 1px solid #1f1f1f;
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(251, 191, 36, 0.4);
+        }
+
+        .plan-label {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        .plan-price { font-size: 3rem; font-weight: 700; margin-bottom: 10px; }
+        .plan-price span { font-size: 1rem; opacity: 0.6; }
+        .plan-desc { font-size: 0.95rem; margin-bottom: 30px; opacity: 0.8; }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .plan-features li {
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .plan-features li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .plan-btn:hover { background: rgba(255, 255, 255, 0.05); }
+
+        .plan-btn.primary { background: #fbbf24; color: #000; border: none; }
+        .plan-btn.primary:hover { background: #f59e0b; }
+
+        .featured {
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            box-shadow: 0 20px 60px rgba(251, 191, 36, 0.15);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            right: 30px;
+            background: #fbbf24;
+            color: #000;
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .pricing-note {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 992px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- ENTERPRISE --- */
+        .enterprise-section { padding: 120px 0; }
+
+        .enterprise-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .enterprise-content {
+            background: #111;
+            padding: 60px 50px;
+            border-radius: 24px;
+            border: 1px solid #1f1f1f;
+            transition: 0.3s ease;
+        }
+
+        .enterprise-content:hover {
+            transform: translateY(-6px);
+            border-color: rgba(251, 191, 36, 0.4);
+        }
+
+        .enterprise-list {
+            list-style: none;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .enterprise-list li { position: relative; padding-left: 24px; }
+
+        .enterprise-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #fbbf24;
+            font-size: 1.2rem;
+        }
+
+        .small-note { display: block; font-size: 0.8rem; opacity: 0.6; margin-top: 6px; }
+
+        .badge.secondary {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            width: 100%;
+            background: #000;
+            color: #ccc;
+            padding: 60px 80px 20px;
+            border-top: 1px solid #1f1f1f;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-column { flex: 1; min-width: 200px; }
+        .footer-column h2, .footer-column h3 { color: #fff; margin-bottom: 15px; }
+
+        .footer-column ul { list-style: none; padding: 0; }
+        .footer-column ul li { margin-bottom: 10px; cursor: pointer; }
+        .footer-column ul li:hover { color: #f5b400; }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* --- MOBILE NAV --- */
+        @media (max-width: 900px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                display: flex;
+                position: absolute;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-20px) scale(0.95);
+                width: 90%;
+                background: rgba(2, 4, 10, 0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                border-radius: 24px;
+                padding: 30px;
+                flex-direction: column;
+                gap: 20px;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             }
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+            .nav-links { flex-direction: column; width: 100%; text-align: center; }
+            .nav-links a { display: block; width: 100%; font-size: 1.1rem; }
+            .nav-dropdown-trigger { width: 100%; justify-content: center; font-size: 1.1rem; }
+            .dropdown-panel { position: static; transform: none !important; width: 100%; opacity: 1 !important; visibility: visible !important; display: none; box-shadow: none; border-radius: 14px; margin-top: 10px; }
+            .nav-dropdown.open .dropdown-panel { display: block; }
+            .btn-client { margin-left: 0; width: 100%; text-align: center; }
+        }
+
+        @media (max-width: 768px) {
+            .footer { padding: 60px 30px 20px; }
+        }
+
+        /* --- CTA BUTTON --- */
+        .command-cta { margin-top: 40px; margin-bottom: 20px; }
+
+        .cta-button.pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--accent);
+            color: #000;
+            padding: 12px 12px 12px 28px;
+            border-radius: 100px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.15);
+        }
+
+        .arrow-circle {
+            width: 40px;
+            height: 40px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .cta-button.pill:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: #fff;
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button.pill:hover .arrow-circle {
+            transform: translateX(3px);
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* --- CARD ICON ANIMATION --- */
+        .card-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 20px;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, border-color 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover .card-icon {
+            transform: rotate(45deg) scale(1.1);
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .feature-card:hover .card-icon svg {
+            transform: rotate(-45deg);
+            color: var(--accent);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
     </style>
-<section class="smart-surveillance" id="access-management">
-    <div class="container">
-        <div class="surveillance-grid">
-            
-            <div class="ac-visual-wrapper">
-                <div class="ac-monitor-frame">
-                    <div class="ac-scan-overlay"></div>
-                    <div class="ac-beam-line"></div>
-                    
-                    <div class="ac-ui-header">
-                        <div class="ac-live-box">
-                            <span class="ac-status-dot"></span>
-                            <span class="ac-status-label">TERMINAL ACTIVE</span>
-                        </div>
-                        <span class="ac-timer">JAN 27, 2026 | 10:51:54 AM</span>
-                    </div>
+</head>
 
-                    <div class="ac-scan-viewport">
-                        <div class="ac-target-box">
-                             <div class="ac-corner-brackets"></div>
-                             <div class="ac-reticle-bar"></div>
-                             <svg class="ac-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                             </svg>
-                        </div>
-                    </div>
+<body>
+    <div class="bg-glow"></div>
 
-                    <div class="ac-log-stack">
-                        <div class="ac-entry ac-anim-up">
-                            <div class="ac-entry-meta">
-                                <span class="ac-meta-label">ID VERIFIED</span>
-                                <span class="ac-meta-val">FACIAL RECOGNITION</span>
+    <!-- NAVIGATION -->
+    <div class="nav-wrapper" id="navbar">
+        <nav class="pill-nav">
+            <a href="#" class="logo">
+                <img src="./images/watchtower.png" alt="Logo" class="brand-img">
+                WatchTower
+            </a>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-menu" id="nav-menu">
+                <div class="nav-links">
+
+                    <!-- PRODUCTS DROPDOWN -->
+                    <div class="nav-dropdown" id="productsDropdown">
+                        <button class="nav-dropdown-trigger" id="productsBtn">
+                            Products
+                            <svg class="dropdown-chevron" viewBox="0 0 24 24">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+
+                        <div class="dropdown-panel" id="dropdownPanel">
+                            <div class="dropdown-header">Platform Features</div>
+                            <div class="dropdown-grid">
+
+                                <!-- Command Center -->
+                                <a href="#command-center" class="dropdown-item">
+                                    <div class="di-icon-wrap">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <!-- Animated radar sweep -->
+                                            <circle cx="12" cy="12" r="9" stroke="currentColor" opacity="0.3"/>
+                                            <circle cx="12" cy="12" r="5" stroke="currentColor" opacity="0.5"/>
+                                            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                                            <!-- Sweep line that rotates -->
+                                            <line x1="12" y1="12" x2="12" y2="3" stroke="currentColor" class="icon-radar" style="transform-origin: 12px 12px;"/>
+                                            <circle cx="12" cy="3" r="1" fill="currentColor" class="icon-radar" style="transform-origin: 12px 12px;"/>
+                                        </svg>
+                                    </div>
+                                    <div class="di-text">
+                                        <div class="di-title">Command Center</div>
+                                        <div class="di-desc">Unified dashboard for total site oversight</div>
+                                    </div>
+                                </a>
+
+                                <!-- Virtual Patrol -->
+                                <a href="#virtual-patrol" class="dropdown-item">
+                                    <div class="di-icon-wrap">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <!-- Shield base -->
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor"/>
+                                            <!-- Animated scan line inside shield -->
+                                            <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" class="icon-scan-line"/>
+                                        </svg>
+                                    </div>
+                                    <div class="di-text">
+                                        <div class="di-title">Virtual Patrol</div>
+                                        <div class="di-desc">AI-powered automated surveillance rounds</div>
+                                    </div>
+                                </a>
+
+                                <!-- Smart Surveillance -->
+                                <a href="#smart-surveillance" class="dropdown-item">
+                                    <div class="di-icon-wrap">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <!-- Eye outline -->
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor"/>
+                                            <!-- Pulsing iris -->
+                                            <circle cx="12" cy="12" r="3.5" stroke="currentColor" class="icon-pulse-ring" style="transform-origin: 12px 12px;"/>
+                                            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                    <div class="di-text">
+                                        <div class="di-title">Smart Surveillance</div>
+                                        <div class="di-desc">Detect anomalies before they become threats</div>
+                                    </div>
+                                </a>
+
+                                <!-- Access Control -->
+                                <a href="#access-management" class="dropdown-item">
+                                    <div class="di-icon-wrap">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <!-- Face outline -->
+                                            <circle cx="12" cy="8" r="4" stroke="currentColor"/>
+                                            <path d="M6 20v-1a6 6 0 0 1 12 0v1" stroke="currentColor"/>
+                                            <!-- Animated scan across face -->
+                                            <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" class="icon-scan-line" style="animation-delay: 0.5s;"/>
+                                        </svg>
+                                    </div>
+                                    <div class="di-text">
+                                        <div class="di-title">Access Control</div>
+                                        <div class="di-desc">Facial recognition & LPR gate management</div>
+                                    </div>
+                                </a>
+
                             </div>
-                            <div class="ac-tag-approved">GRANTED</div>
-                        </div>
-                        
-                        <div class="ac-entry ac-anim-up ac-delay-1">
-                            <div class="ac-entry-meta">
-                                <span class="ac-meta-label">LPR SCAN</span>
-                                <span class="ac-meta-val">PLATE: AD12 34</span>
+
+                            <div class="dropdown-footer">
+                                <span class="df-badge">✦ Free Tier Available</span>
+                                <a href="#pricing" class="df-link">
+                                    View Pricing
+                                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </a>
                             </div>
-                            <div class="ac-tag-approved">GRANTED</div>
                         </div>
                     </div>
 
-                    <div class="ac-footer-info">
-                        <div class="ac-sync-text">VisitorPass & GatePass Synced...</div>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                </div>
+                <a href="#" class="btn-client">Client Portal</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="badge">Next-Gen AI Surveillance</div>
+        <h1>Smart Security <br><span class="gradient-text">Operations.</span></h1>
+        <p>WatchTower is an AI-powered operations platform that uses automation to monitor sites, conduct virtual
+            patrols, and maintain audit-ready records.</p>
+
+        <div class="play-group">
+            <div class="wave-container">
+                <div class="wave-ring"></div>
+                <div class="wave-ring" style="animation-delay: 0.8s;"></div>
+                <div class="wave-ring" style="animation-delay: 1.6s;"></div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="black">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+            </div>
+            <span style="font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px; color: white;">
+                VIEW SYSTEM IN ACTION
+            </span>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <div class="badge" style="margin-bottom: 10px;">The WatchTower Advantage</div>
+            <h2 class="section-title">Better Security, <span class="gradient-text">Less Stress.</span></h2>
+            <p style="color: var(--text-dim); max-width: 700px; margin: 0 auto;">
+                Our AI handles the fatigue-heavy task of constant monitoring, allowing your team to focus on high-stakes response.
+            </p>
+        </div>
+
+        <div class="feature-card bento-full">
+            <div class="card-header-wrapper">
+                <div class="card-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        <polyline points="9 11 11 13 15 9" />
+                    </svg>
+                </div>
+                <h2 class="comparison-main-title">Operational Efficiency</h2>
+            </div>
+
+            <div class="comparison-row">
+                <div class="comparison-column positive">
+                    <h3 class="status-title"><span class="status-dot"></span> With WatchTower</h3>
+                    <ul class="comparison-bullets">
+                        <li>AI supports guards 24/7</li>
+                        <li>Wider coverage, less strain</li>
+                        <li>Instant SOP-aligned alerts</li>
+                        <li>Audit-ready digital logs</li>
+                    </ul>
+                </div>
+                <div class="comparison-divider"></div>
+                <div class="comparison-column negative">
+                    <h3 class="status-title"><span class="status-dot"></span> Without WatchTower</h3>
+                    <ul class="comparison-bullets">
+                        <li>Constant manual monitoring</li>
+                        <li>Risk of fatigue-led misses</li>
+                        <li>Limited perimeter visibility</li>
+                        <li>Fragmented paper logs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMAND CENTER -->
+    <section class="command-center" id="command-center">
+        <div class="container">
+            <div class="command-grid">
+                <div class="command-content">
+                    <div class="badge">One Screen Total Oversight.</div>
+                    <h2 class="section-title">The <span class="gradient-text">Command Center.</span></h2>
+                    <p class="section-subtitle">
+                        Stop juggling ten different systems. WatchTower brings all your
+                        cameras, alerts, and patrol updates onto one intelligent screen.
+                    </p>
+                    <div class="command-cta"></div>
+
+                    <div class="capability-list">
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                    <line x1="8" y1="21" x2="16" y2="21" />
+                                    <line x1="12" y1="17" x2="12" y2="21" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Unified Dashboard</h4>
+                                <p>Monitor cameras, visitors, vehicles, and patrols seamlessly within a single, intelligent interface.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                                    <line x1="12" y1="18" x2="12.01" y2="18" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Secure Multi-Platform Access</h4>
+                                <p>Access your security network securely from any desktop workstation or mobile device, anywhere.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Role-Based Visibility</h4>
+                                <p>Custom permissions and visibility tiers designed for guards, supervisors, and management.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Real-Time Operational Awareness</h4>
+                                <p>Maintain constant oversight with live updates and instant alerts across all operational zones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="command-visual">
+                    <div class="dashboard-mockup">
+                        <div class="mockup-header">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                            <span class="mockup-title">WatchTower_Core_v2.0</span>
+                        </div>
+                        <div class="mockup-screen">
+                            <div class="radar-container">
+                                <div class="radar-sweep"></div>
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <div class="live-ui">
+                                <div class="corner-tl"></div>
+                                <div class="corner-tr"></div>
+                                <div class="corner-bl"></div>
+                                <div class="corner-br"></div>
+                                <div class="status-bar">
+                                    <span class="rec-dot"></span>
+                                    <span class="live-text">REC ● 04:15:20 PM</span>
+                                </div>
+                                <div class="camera-id">CAM_01 // ENTRANCE_ZONE</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-<div class="surveillance-content">
+        </div>
+    </section>
+
+    <!-- VIRTUAL PATROL -->
+    <section class="virtual-patrol" id="virtual-patrol">
+        <div class="container">
+            <div class="patrol-grid">
+                <div class="patrol-visual">
+                    <div class="patrol-monitor">
+                        <div class="monitor-header">
+                            <div class="status-indicator"><span class="pulse-dot"></span>AUTOPILOT ACTIVE</div>
+                            <div class="system-time">08:45:12 PM</div>
+                        </div>
+                        <div class="monitor-feed">
+                            <div class="scan-line"></div>
+                            <div class="overlay-text">ZONE_04: PERIMETER_FENCE</div>
+                            <div class="patrol-status-badge">ROUNDS COMPLETED</div>
+                        </div>
+                        <div class="monitor-footer">
+                            <div class="stat"><span>RELIABILITY:</span> 100%</div>
+                            <div class="stat"><span>SHORTCUTS:</span> 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="patrol-content">
+                    <div class="badge">Autopilot Surveillance</div>
+                    <h2 class="section-title">Virtual <span class="gradient-text">Patrol.</span></h2>
+                    <h3 class="patrol-subtitle">Why Send Guards On Repetitive Rounds?</h3>
+                    <p class="section-subtitle">WatchTower performs patrols using cameras, following your SOPs exactly every time, without shortcuts or fatigue. Guards can run patrols manually, schedule them, or let WatchTower operate in intelligent autopilot mode.</p>
+
+                    <div class="capability-list">
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Rule-Based Patrols</h4>
+                                <p>Conducts scheduled, rule-based patrols using cameras covering remote, blind, or restricted areas.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Extended Reach</h4>
+                                <p>Seamlessly covers high-risk or difficult areas that are hard for guards to reach physically.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
+                                    <line x1="16" y1="8" x2="2" y2="22" />
+                                    <line x1="17.5" y1="15" x2="9" y2="15" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Intelligent Autopilot</h4>
+                                <p>Do it yourself, let it run on autopilot, or fully automate your surveillance rounds.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Unwavering Consistency</h4>
+                                <p>The system follows your exact instructions (SOPs) every single time, without shortcuts.</p>
+                            </div>
+                        </div>
+
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Verified Reporting</h4>
+                                <p>Automatic generation of time-stamped patrol logs and comprehensive incident reports.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SMART SURVEILLANCE -->
+    <section class="smart-surveillance" id="smart-surveillance">
+        <div class="container">
+            <div class="surveillance-grid">
+                <div class="surveillance-content">
                     <div class="badge">AI-Powered Intelligence</div>
                     <h2 class="section-title">Smart <span class="gradient-text">Surveillance.</span></h2>
                     <h3 class="surveillance-subtitle">Detect Problems Before They Happen.</h3>
@@ -1789,223 +1884,390 @@
                     <div class="capability-list">
                         <div class="capability-item">
                             <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                     <circle cx="12" cy="12" r="3" />
                                 </svg>
                             </div>
                             <div class="cap-text">
                                 <h4>Smart Detection</h4>
-                                <p>Instantly spots people, vehicles, and suspicious behavior while filtering out
-                                    environmental noise.</p>
+                                <p>Instantly spots people, vehicles, and suspicious behavior while filtering out environmental noise.</p>
                             </div>
                         </div>
 
                         <div class="capability-item">
                             <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                                     <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                                 </svg>
                             </div>
                             <div class="cap-text">
                                 <h4>Real Alerts</h4>
-                                <p>Get notified for things that matter—like tailgating or someone entering after hours.
-                                </p>
+                                <p>Get notified for things that matter—like tailgating or someone entering after hours.</p>
                             </div>
                         </div>
 
                         <div class="capability-item">
                             <div class="cap-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <circle cx="11" cy="11" r="8" />
                                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                                 </svg>
                             </div>
                             <div class="cap-text">
                                 <h4>Instant Video Search</h4>
-                                <p>Stop scrubbing through hours of footage. Search by time, location, or event type
-                                    instantly.</p>
+                                <p>Stop scrubbing through hours of footage. Search by time, location, or event type instantly.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="surveillance-visual">
+                    <div class="ai-monitor">
+                        <div class="grid-overlay"></div>
+                        <div class="scan-line"></div>
+                        <div class="detection-container vehicle-alert">
+                            <svg class="car-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01ZM6.85 7H17.15L18.22 10.11H5.78L6.85 7ZM19 17H5V12H19V17ZM7.5 16C8.33 16 9 15.33 9 14.5C9 13.67 8.33 13 7.5 13C6.67 13 6 13.67 6 14.5C6 15.33 6.67 16 7.5 16ZM16.5 16C17.33 16 18 15.33 18 14.5C18 13.67 17.33 13 16.5 13C15.67 13 15 13.67 15 14.5C15 15.33 15.67 16 16.5 16Z" fill="currentColor" />
+                            </svg>
+                            <div class="bounding-box"></div>
+                            <div class="detection-label">ANOMALY: UNAUTHORIZED VEHICLE</div>
+                            <div class="radar-ring"></div>
+                        </div>
+                        <div class="search-overlay">
+                            <div class="search-bar">"Smart Surveillance"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<style>
-/* --- ACCESS CONTROL (AC) SCOPED STYLES --- */
-:root {
-    --ac-gold: #FFD700;
-    --ac-gold-dim: rgba(255, 215, 0, 0.1);
-    --ac-bg: #0A0A05;
-}
+    <!-- ACCESS MANAGEMENT -->
+    <section class="smart-surveillance" id="access-management">
+        <div class="container">
+            <div class="ac-grid">
+                <div class="ac-visual-wrapper">
+                    <div class="ac-monitor-frame">
+                        <div class="ac-beam-line"></div>
+                        <div class="ac-ui-header">
+                            <div class="ac-live-box">
+                                <span class="ac-status-dot"></span>
+                                <span class="ac-status-label">TERMINAL ACTIVE</span>
+                            </div>
+                            <span class="ac-timer">JAN 27, 2026 | 10:51:54 AM</span>
+                        </div>
+                        <div class="ac-scan-viewport">
+                            <div class="ac-target-box">
+                                <div class="ac-corner-brackets"></div>
+                                <div class="ac-reticle-bar"></div>
+                                <svg class="ac-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ac-log-stack">
+                            <div class="ac-entry">
+                                <div>
+                                    <span class="ac-meta-label">ID VERIFIED</span>
+                                    <span class="ac-meta-val">FACIAL RECOGNITION</span>
+                                </div>
+                                <div class="ac-tag-approved">GRANTED</div>
+                            </div>
+                            <div class="ac-entry">
+                                <div>
+                                    <span class="ac-meta-label">LPR SCAN</span>
+                                    <span class="ac-meta-val">PLATE: AD12 34</span>
+                                </div>
+                                <div class="ac-tag-approved">GRANTED</div>
+                            </div>
+                        </div>
+                        <div class="ac-footer-info">VisitorPass & GatePass Synced...</div>
+                    </div>
+                </div>
 
-.ac-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+                <div class="surveillance-content">
+                    <div class="badge">Access Management</div>
+                    <h2 class="section-title">Smart <span class="gradient-text">Access Control.</span></h2>
+                    <h3 class="surveillance-subtitle">Know Who Enters and Exits.</h3>
+                    <p class="section-subtitle">
+                        WatchTower integrates facial recognition and LPR scanning to manage visitor and vehicle access seamlessly.
+                        Every entry and exit is logged with timestamps and identity verification.
+                    </p>
 
-/* Visual Monitor */
-.ac-monitor-frame {
-    background: var(--ac-bg);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    height: 400px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-}
+                    <div class="capability-list">
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Facial Recognition</h4>
+                                <p>Instantly identifies and verifies individuals while filtering unauthorized access attempts.</p>
+                            </div>
+                        </div>
 
-.ac-ui-header {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    background: var(--ac-gold-dim);
-    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-}
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>Vehicle LPR Integration</h4>
+                                <p>Automatic license plate recognition grants or denies vehicle access with zero manual intervention.</p>
+                            </div>
+                        </div>
 
-.ac-status-label, .ac-timer {
-    color: var(--ac-gold);
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-}
+                        <div class="capability-item">
+                            <div class="cap-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                </svg>
+                            </div>
+                            <div class="cap-text">
+                                <h4>VisitorPass & GatePass Sync</h4>
+                                <p>Connected apps for digital visitor registration and vehicle parking management, fully integrated.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.ac-status-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: var(--ac-gold);
-    border-radius: 50%;
-    margin-right: 5px;
-    animation: ac-pulse 1.5s infinite;
-}
+    <!-- PRICING -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header center">
+                <div class="badge">Pricing</div>
+                <h2 class="section-title">Scale Only When <span class="gradient-text">You Need To</span></h2>
+                <p class="section-subtitle">
+                    WatchTower runs on your existing infrastructure with no upfront investment.
+                    Upgrade only when your operational needs grow.
+                </p>
+            </div>
 
-/* Scanning Elements */
-.ac-beam-line {
-    position: absolute;
-    width: 100%;
-    height: 100px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.05), transparent);
-    animation: ac-sweep 4s linear infinite;
-    z-index: 1;
-}
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-label">FOREVER FREE TIER</div>
+                    <div class="plan-price">$0</div>
+                    <div class="plan-desc">Best for single-site and basic use</div>
+                    <ul class="plan-features">
+                        <li>Single user access</li>
+                        <li>Supports up to 8 cameras</li>
+                        <li>Command Center dashboard</li>
+                        <li>Unlimited manual Virtual Patrols</li>
+                        <li>Patrol reports via email</li>
+                        <li>Runs locally on your existing PC or laptop</li>
+                    </ul>
+                    <button class="plan-btn">Get Started Free</button>
+                </div>
 
-.ac-target-box {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 40px auto;
-    border: 1px solid rgba(255, 215, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Recommended</div>
+                    <div class="plan-label">INTELLIGENCE TIER</div>
+                    <div class="plan-price">$99 <span>/ per month</span></div>
+                    <div class="plan-desc">Everything in Free Tier, plus:</div>
+                    <ul class="plan-features">
+                        <li>Multi-user access for guards, supervisors, and managers</li>
+                        <li>Support for larger camera deployments</li>
+                        <li>AI-powered automated Virtual Patrols</li>
+                        <li>Real-time alerts & mobile app notifications</li>
+                        <li>SLA-based support</li>
+                        <li>Free VisitorPass (Connected app for digital visitor registration & management)</li>
+                    </ul>
+                    <button class="plan-btn primary">Upgrade Now</button>
+                </div>
+            </div>
 
-.ac-corner-brackets {
-    position: absolute;
-    inset: -5px;
-}
+            <div class="pricing-note">
+                <p>
+                    Final pricing depends on:<br>
+                    • Number of sites &nbsp;• Camera count &nbsp;• Selected AI features and automation &nbsp;• Deployment model (local, edge, or cloud)
+                </p>
+            </div>
+        </div>
+    </section>
 
-.ac-corner-brackets::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 15px; height: 15px;
-    border-top: 2px solid var(--ac-gold); border-left: 2px solid var(--ac-gold);
-}
+    <!-- ENTERPRISE -->
+    <section class="enterprise-section">
+        <div class="container">
+            <div class="enterprise-grid">
+                <div class="enterprise-content">
+                    <div class="badge">Premium & Enterprise</div>
+                    <h2 class="section-title">Advanced Add-Ons for Growing Operations</h2>
+                    <ul class="enterprise-list">
+                        <li>Multi-site deployments</li>
+                        <li>Advanced AI automation and workflows</li>
+                        <li>Real-time video analytics and intelligent tracking</li>
+                        <li>Fast video search and live monitoring</li>
+                        <li>LPR camera integration with GatePass
+                            <span class="small-note">(Connected app for vehicle and parking management)</span>
+                        </li>
+                        <li>Dedicated edge or cloud deployments</li>
+                    </ul>
+                </div>
 
-.ac-reticle-bar {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: var(--ac-gold);
-    box-shadow: 0 0 10px var(--ac-gold);
-    animation: ac-scan-bar 3s ease-in-out infinite;
-}
+                <div class="enterprise-content">
+                    <div class="badge secondary">Why WatchTower Is Easy To Start</div>
+                    <h2 class="section-title">Deploy Fast. Scale Smart.</h2>
+                    <ul class="enterprise-list">
+                        <li>No compulsory hardware purchase</li>
+                        <li>Deploy locally, on dedicated edge, or on cloud</li>
+                        <li>Reuse existing cameras, PCs, or on-site servers</li>
+                        <li>Flexible configurations based on site size, camera count, and use cases</li>
+                        <li>Priority updates and enterprise support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.ac-svg-icon {
-    width: 40px;
-    stroke: var(--ac-gold);
-}
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h2>WatchTower</h2>
+                <p>Intelligent security operations platform built for modern enterprises. Deploy locally, on edge, or in the cloud.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li onclick="document.getElementById('command-center').scrollIntoView({behavior:'smooth'})">Command Center</li>
+                    <li onclick="document.getElementById('virtual-patrol').scrollIntoView({behavior:'smooth'})">Virtual Patrol</li>
+                    <li onclick="document.getElementById('smart-surveillance').scrollIntoView({behavior:'smooth'})">Smart Surveillance</li>
+                    <li onclick="document.getElementById('access-management').scrollIntoView({behavior:'smooth'})">Access Control</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Product</h3>
+                <ul>
+                    <li onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Pricing</li>
+                    <li>Enterprise Add-Ons</li>
+                    <li>VisitorPass</li>
+                    <li>GatePass</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p>Email: support@watchtower.com</p>
+                <p>Sales: sales@watchtower.com</p>
+                <p><strong>24/7 Enterprise Support</strong></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 WatchTower. All rights reserved.
+        </div>
+    </footer>
 
-/* Log Stack */
-.ac-log-stack {
-    padding: 20px;
-}
+    <script>
+        // --- HAMBURGER MENU ---
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
 
-.ac-entry {
-    background: rgba(255, 215, 0, 0.05);
-    border-left: 3px solid var(--ac-gold);
-    margin-bottom: 8px;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
 
-.ac-meta-label { font-size: 10px; color: var(--ac-gold); display: block; }
-.ac-meta-val { font-size: 12px; color: white; font-weight: 500; }
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
 
-.ac-tag-approved {
-    background: var(--ac-gold);
-    color: black;
-    font-size: 10px;
-    font-weight: 800;
-    padding: 2px 8px;
-    border-radius: 3px;
-}
+        window.addEventListener('scroll', () => {
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
 
-/* Animations */
-@keyframes ac-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-}
+        // --- PRODUCTS DROPDOWN ---
+        const productsDropdown = document.getElementById('productsDropdown');
+        const productsBtn = document.getElementById('productsBtn');
+        const dropdownPanel = document.getElementById('dropdownPanel');
 
-@keyframes ac-sweep {
-    from { top: -100px; }
-    to { top: 100%; }
-}
+        // Toggle on button click
+        productsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            productsDropdown.classList.toggle('open');
+        });
 
-@keyframes ac-scan-bar {
-    0%, 100% { top: 0; }
-    50% { top: 100%; }
-}
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!productsDropdown.contains(e.target)) {
+                productsDropdown.classList.remove('open');
+            }
+        });
 
-/* Content Styles */
-.ac-badge-gold {
-    background: var(--ac-gold-dim);
-    color: var(--ac-gold);
-    border: 1px solid var(--ac-gold);
-    padding: 5px 12px;
-    border-radius: 50px;
-    font-size: 12px;
-    display: inline-block;
-    margin-bottom: 20px;
-}
+        // Close dropdown and scroll to section when item clicked
+        dropdownPanel.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = item.getAttribute('href');
+                productsDropdown.classList.remove('open');
+                // Close mobile menu too
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                // Smooth scroll
+                if (href && href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }, 50);
+                    }
+                }
+            });
+        });
 
-.ac-gradient-gold {
-    background: linear-gradient(90deg, #FFD700, #FFA500);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+        // Close dropdown and scroll for pricing link in footer
+        dropdownPanel.querySelector('.df-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            productsDropdown.classList.remove('open');
+            document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+        });
 
-.ac-icon-box {
-    color: var(--ac-gold);
-    margin-right: 15px;
-}
+        // --- NAVBAR HIDE/SHOW ON SCROLL ---
+        let lastScrollY = window.scrollY;
+        const navbar = document.getElementById('navbar');
 
-@media (max-width: 900px) {
-    .ac-grid { grid-template-columns: 1fr; }
-}
-</style>
+        window.addEventListener('scroll', () => {
+            // Close dropdown on scroll
+            productsDropdown.classList.remove('open');
+
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                navbar.classList.add('nav-hidden');
+            } else {
+                navbar.classList.remove('nav-hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // --- SCROLL REVEAL FOR FEATURE CARDS ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 </body>
-
 </html>
